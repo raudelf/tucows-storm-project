@@ -1,0 +1,19 @@
+.storm-container {
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+  width: 100%;
+
+  @include md {
+    max-width: 768px;
+  }
+
+  @include lg {
+    max-width: 992px;
+  }
+
+  @include xlg {
+    max-width: 1200px;
+  }
+}
