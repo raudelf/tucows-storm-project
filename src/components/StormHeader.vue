@@ -1,5 +1,6 @@
 <script setup>
 import StormMobileMenu from './StormMobileMenu.vue'
+import MagnifyingGlassSVG from './SVGs/MagnifyingGlassSVG.vue'
 
 const handleFormSubmit = (e) => {
   e.preventDefault()
@@ -36,6 +37,7 @@ const handleFormSubmit = (e) => {
         <div class="storm-header__search-container">
           <form @submit="handleFormSubmit" class="storm-header__search-form">
             <label for="header-search" class="storm-visually-hidden">Search for a product</label>
+            <MagnifyingGlassSVG />
             <input
               id="header-search"
               type="text"

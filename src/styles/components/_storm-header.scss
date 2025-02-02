@@ -29,19 +29,28 @@
 }
 
 .storm-header__search-container {
+  position: relative;
   flex: 1;
+
+  .storm-icon--magnifying-glass {
+    position: absolute;
+    top: 10px;
+    left: 16px;
+  }
 }
 
 .storm-header__search-form {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 25px;
+  gap: 24px;
 }
 
 .storm-header__search-input {
+  width: 100%;
+  min-height: 44px;
   border: 1px solid $input-border-color;
   border-radius: 4px;
+  padding-left: 3rem;
 }
 
 .storm-header__img {
@@ -50,9 +59,4 @@
 
 .storm-header__img-container {
   max-width: 210px;
-}
-
-.storm-header__search-input {
-  min-height: 44px;
-  flex: 1;
 }
