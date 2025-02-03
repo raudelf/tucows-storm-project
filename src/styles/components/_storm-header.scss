@@ -12,20 +12,16 @@
   &--mobile {
     margin-top: 1rem;
 
-    @include md {
+    @include lg {
       display: none;
     }
   }
 }
 
 .storm-header__mobile-nav {
-  @include md {
+  @include lg {
     display: none;
   }
-}
-
-.storm-header__utils {
-  flex: 1;
 }
 
 .storm-header__search-container {
@@ -42,7 +38,11 @@
 .storm-header__search-form {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 1.5rem;
+
+  @include md {
+    gap: 1rem;
+  }
 }
 
 .storm-header__search-input {
@@ -51,6 +51,10 @@
   border: 1px solid $input-border-color;
   border-radius: 4px;
   padding-left: 3rem;
+
+  @include lg {
+    min-width: 260px;
+  }
 }
 
 .storm-header__img {
@@ -59,4 +63,12 @@
 
 .storm-header__img-container {
   max-width: 210px;
+}
+
+.storm-header__utils {
+  display: none;
+
+  @include lg {
+    display: block;
+  }
 }

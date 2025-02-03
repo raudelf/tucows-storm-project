@@ -1,0 +1,13 @@
+.storm-main__title-container {
+  margin-top: 1.125rem;
+  display: flex;
+  gap: 0.625rem;
+
+  @include lg {
+    margin-top: 4.75rem;
+  }
+}
+
+.storm-main__title {
+  font-size: 1rem;
+}

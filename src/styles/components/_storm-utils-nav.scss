@@ -1,3 +1,31 @@
 .storm-utils-nav {
   @include resetList;
 }
+
+.storm-utils-nav {
+  display: flex;
+  align-items: center;
+}
+
+.storm-utils-nav__item {
+  margin-right: 1.25rem;
+
+  &--search {
+    margin-right: 2.5rem;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.storm-utils-nav__link {
+  color: #605dec;
+  text-decoration: none;
+
+  &--profile {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+  }
+}

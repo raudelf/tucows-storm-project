@@ -4,4 +4,9 @@
   &--magnifying-glass {
     fill: #666e7d;
   }
+
+  .storm-utils-nav__link & {
+    fill: $white;
+    stroke: #5d5fef;
+  }
 }
