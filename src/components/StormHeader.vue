@@ -1,11 +1,9 @@
 <script setup>
 import StormMobileMenu from './StormMobileMenu.vue'
-import MagnifyingGlassSVG from './SVGs/MagnifyingGlassSVG.vue'
-
-const handleFormSubmit = (e) => {
-  e.preventDefault()
-  console.log(e.target)
-}
+import SearchInput from './SearchInput.vue'
+import GearSVG from './SVGs/GearSVG.vue'
+import BellSVG from './SVGs/BellSVG.vue'
+import ProfileSVG from './SVGs/ProfileSVG.vue'
 </script>
 
 <template>
@@ -26,28 +24,33 @@ const handleFormSubmit = (e) => {
 
         <StormMobileMenu />
 
-        <!-- <div class="storm-header__utils">
+        <div class="storm-header__utils">
           <ul class="storm-utils-nav">
-            <li class="storm-utils-nav__item storm-utils-nav__item--search"></li>
+            <li class="storm-utils-nav__item storm-utils-nav__item--search">
+              <SearchInput />
+            </li>
+            <li class="storm-utils-nav__item">
+              <a href="/" class="storm-utils-nav__link" aria-label="settings">
+                <GearSVG />
+              </a>
+            </li>
+            <li class="storm-utils-nav__item">
+              <a href="/" class="storm-utils-nav__link" aria-label="notifications">
+                <BellSVG />
+              </a>
+            </li>
+            <li class="storm-utils-nav__item">
+              <a href="/" class="storm-utils-nav__link storm-utils-nav__link--profile">
+                <ProfileSVG />
+                <span>Adriana Arias</span>
+              </a>
+            </li>
           </ul>
-        </div> -->
+        </div>
       </div>
 
       <div class="storm-header__row storm-header__row--mobile">
-        <div class="storm-header__search-container">
-          <form @submit="handleFormSubmit" class="storm-header__search-form">
-            <label for="header-search" class="storm-visually-hidden">Search for a product</label>
-            <MagnifyingGlassSVG />
-            <input
-              id="header-search"
-              type="text"
-              name="header-search"
-              class="storm-header__search-input"
-              placeholder="Search"
-            />
-            <button class="storm-btn storm-header__search-btn" type="submit">Search</button>
-          </form>
-        </div>
+        <SearchInput />
       </div>
     </div>
   </div>
