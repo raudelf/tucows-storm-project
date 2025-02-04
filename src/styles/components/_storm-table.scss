@@ -20,6 +20,10 @@
     &:first-child {
       text-align: left;
     }
+
+    &:last-child {
+      border-left: 1px solid $table-border-color;
+    }
   }
 
   td {
