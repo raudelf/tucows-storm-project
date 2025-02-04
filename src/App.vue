@@ -43,8 +43,9 @@ onMounted(async () => {
         >
       </div>
 
-      <ProductTable v-if="!fetchError" :products="products" />
-      <p class="" v-else>{{ fetchError }}</p>
+      <ProductTable v-if="!fetchError && products.length > 0" :products="products" />
+      <p v-else-if="isLoading">Loading Data...</p>
+      <p class="storm-main__error-message" v-else>{{ fetchError }}</p>
     </div>
   </main>
 </template>
