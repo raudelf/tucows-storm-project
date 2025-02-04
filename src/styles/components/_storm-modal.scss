@@ -1,0 +1,90 @@
+.storm-modal {
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+
+  @include md {
+    align-items: center;
+  }
+}
+
+.storm-modal__background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1999;
+
+  @include lg {
+    z-index: 9998;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+}
+
+.storm-modal__container {
+  width: 100%;
+  height: calc(100vh - 144px);
+  padding: 2.5rem;
+  background-color: $white;
+
+  @include md {
+    width: 685px;
+    height: auto;
+    border-radius: 8px;
+  }
+}
+
+.storm-modal__header {
+  margin-bottom: 2.813rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @include md {
+    margin-bottom: 3.5rem;
+  }
+
+  .storm-icon {
+    fill: #707070;
+  }
+}
+
+.storm-modal__header-text {
+  font-size: 1.25rem;
+}
+
+.storm-modal__main-content {
+  @include md {
+    display: flex;
+    align-items: flex-start;
+  }
+}
+
+.storm-modal__image-container {
+  @include md {
+    flex: 1;
+  }
+}
+
+.storm-modal__product-details {
+  @include md {
+    flex: 1;
+  }
+}
+
+.storm-modal__btn-container {
+  margin-top: 1.25rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.storm-modal__btn {
+  width: 100%;
+
+  @include md {
+    width: auto;
+  }
+}
