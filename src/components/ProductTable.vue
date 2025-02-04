@@ -8,17 +8,39 @@ const props = defineProps({
 
 const modalTitle = ref('')
 const productImg = ref('')
+const liveProducts = ref([...props.products])
 const showModal = ref(false)
+const ascend = ref(true)
 
-const openModal = (itemTitle, itemImg) => {
+const handleOpenModal = (itemTitle, itemImg) => {
   modalTitle.value = itemTitle
   productImg.value = itemImg
   showModal.value = true
 }
 
-const closeModal = () => {
+const handleCloseModal = () => {
   modalTitle.value = ''
+  productImg.value = ''
   showModal.value = false
+}
+
+const sortData = (sortBy) => {
+  ascend.value = !ascend.value
+
+  switch (sortBy) {
+    case 'product':
+      liveProducts.value = liveProducts.value.sort((a, b) => {
+        return ascend.value
+          ? a.product.localeCompare(b.product)
+          : b.product.localeCompare(a.product)
+      })
+      break
+    default:
+      liveProducts.value = liveProducts.value.sort((a, b) => {
+        return ascend.value ? a[sortBy] - b[sortBy] : b[sortBy] - a[sortBy]
+      })
+      break
+  }
 }
 </script>
 
@@ -29,20 +51,30 @@ const closeModal = () => {
         <tr class="storm-table__tr">
           <th class="storm-table__th">ID</th>
           <th class="storm-table__th">Status</th>
-          <th class="storm-table__th">Quantity</th>
-          <th class="storm-table__th storm-table__th--mobile">Product Name</th>
-          <th class="storm-table__th">Prices</th>
+          <th class="storm-table__th">
+            <button type="button" class="storm-btn-link" @click="sortData('quantity')">
+              Quantity
+            </button>
+          </th>
+          <th class="storm-table__th storm-table__th--mobile">
+            <button type="button" class="storm-btn-link" @click="sortData('product')">
+              Product Name
+            </button>
+          </th>
+          <th class="storm-table__th">
+            <button type="button" class="storm-btn-link" @click="sortData('total')">Prices</button>
+          </th>
         </tr>
       </thead>
       <tbody>
-        <tr class="storm-table__tr" v-for="(item, index) in props.products" :key="index">
+        <tr class="storm-table__tr" v-for="(item, index) in liveProducts" :key="index">
           <td class="storm-table__td">{{ item.id }}</td>
           <td class="storm-table__td storm-table__td--text-center">Status</td>
           <td class="storm-table__td storm-table__td--text-center">{{ item.quantity }}</td>
           <td class="storm-table__td storm-table__td--mobile">
             <button
               class="storm-btn-link"
-              @click="openModal(item.product, item.image)"
+              @click="handleOpenModal(item.product, item.image)"
               aria-haspopup="true"
             >
               {{ item.product }}
@@ -59,7 +91,7 @@ const closeModal = () => {
       </tbody>
     </table>
     <Teleport to="#modal">
-      <StormModal v-show="showModal" :title="modalTitle" :close-modal-fn="closeModal">
+      <StormModal v-show="showModal" :title="modalTitle" :close-modal-fn="handleCloseModal">
         <template v-slot:content>
           <div class="storm-modal__image-container">
             <img
