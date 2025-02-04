@@ -1,5 +1,4 @@
 <script setup>
-import { defineProps } from 'vue'
 import HamburgerMenuCloseSVG from './SVGs/HamburgerMenuCloseSVG.vue'
 
 const props = defineProps({
