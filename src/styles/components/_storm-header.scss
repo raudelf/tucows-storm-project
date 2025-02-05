@@ -51,9 +51,19 @@
   border: 1px solid $input-border-color;
   border-radius: 4px;
   padding-left: 3rem;
+  padding-right: 2rem;
 
   @include lg {
     min-width: 260px;
+  }
+}
+
+.storm-header__clear-search-btn {
+  position: absolute;
+  right: 118px;
+
+  .storm-icon {
+    fill: #666e7d;
   }
 }
 
