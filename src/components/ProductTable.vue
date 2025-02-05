@@ -7,7 +7,6 @@ const { productsList, searchQuery, filteredCount } = useMainState()
 
 const modalTitle = ref('')
 const productImg = ref('')
-const liveProducts = ref([...productsList.value])
 const showModal = ref(false)
 const ascend = ref(true)
 
@@ -28,14 +27,14 @@ const sortData = (sortBy) => {
 
   switch (sortBy) {
     case 'product':
-      liveProducts.value = liveProducts.value.sort((a, b) => {
+      productsList.value = productsList.value.sort((a, b) => {
         return ascend.value
           ? a.product.localeCompare(b.product)
           : b.product.localeCompare(a.product)
       })
       break
     default:
-      liveProducts.value = liveProducts.value.sort((a, b) => {
+      productsList.value = productsList.value.sort((a, b) => {
         return ascend.value ? a[sortBy] - b[sortBy] : b[sortBy] - a[sortBy]
       })
       break
@@ -44,11 +43,11 @@ const sortData = (sortBy) => {
 
 const filteredProducts = () => {
   if (!searchQuery.value) {
-    filteredCount.value = liveProducts.value.length
-    return liveProducts.value
+    filteredCount.value = productsList.value.length
+    return productsList.value
   }
 
-  const filteredData = liveProducts.value.filter((product) => {
+  const filteredData = productsList.value.filter((product) => {
     return product.product.toLowerCase().includes(searchQuery.value.toLowerCase())
   })
 
