@@ -4,7 +4,7 @@ import { useMainState } from './components/state/mainState'
 import StormHeader from './components/StormHeader.vue'
 import ProductTable from './components/ProductTable.vue'
 
-const { fetchError, isDataLoading, productsList, mainCount, filteredCount } = useMainState()
+const { fetchError, isDataLoading, productsList, filteredCount } = useMainState()
 
 onMounted(async () => {
   try {
@@ -18,7 +18,6 @@ onMounted(async () => {
     const data = await response.json()
 
     productsList.value = data
-    mainCount.value = data.length
     filteredCount.value = data.length
   } catch (error) {
     fetchError.value = 'Error Fetching JSON'
@@ -40,7 +39,7 @@ onMounted(async () => {
       <div class="storm-main__title-container">
         <h1 class="storm-main__title">Products</h1>
         <span v-if="!isDataLoading && !fetchError && productsList.length > 0"
-          >{{ filteredCount }} of {{ mainCount }} results</span
+          >{{ filteredCount }} of {{ productsList.length }} results</span
         >
       </div>
 

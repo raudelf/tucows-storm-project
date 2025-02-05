@@ -5,7 +5,6 @@ const stateStore = reactive({
   fetchError: '',
   isDataLoading: true,
   productsList: [],
-  mainCount: 0,
   filteredCount: 0,
 })
 
