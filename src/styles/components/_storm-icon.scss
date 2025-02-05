@@ -5,7 +5,8 @@
     fill: #666e7d;
   }
 
-  .storm-utils-nav__link & {
+  .storm-utils-nav__link &,
+  .storm-main-nav__item & {
     fill: $white;
     stroke: #5d5fef;
   }
