@@ -1,14 +1,13 @@
 <script setup>
 import { ref } from 'vue'
+import { useMainState } from './state/mainState'
 import StormModal from './StormModal.vue'
 
-const props = defineProps({
-  products: { type: Array },
-})
+const { productsList, searchQuery, filteredCount } = useMainState()
 
 const modalTitle = ref('')
 const productImg = ref('')
-const liveProducts = ref([...props.products])
+const liveProducts = ref([...productsList.value])
 const showModal = ref(false)
 const ascend = ref(true)
 
@@ -42,6 +41,21 @@ const sortData = (sortBy) => {
       break
   }
 }
+
+const filteredProducts = () => {
+  if (!searchQuery.value) {
+    filteredCount.value = liveProducts.value.length
+    return liveProducts.value
+  }
+
+  const filteredData = liveProducts.value.filter((product) => {
+    return product.product.toLowerCase().includes(searchQuery.value.toLowerCase())
+  })
+
+  filteredCount.value = filteredData.length
+
+  return filteredData
+}
 </script>
 
 <template>
@@ -67,7 +81,7 @@ const sortData = (sortBy) => {
         </tr>
       </thead>
       <tbody>
-        <tr class="storm-table__tr" v-for="(item, index) in liveProducts" :key="index">
+        <tr class="storm-table__tr" v-for="item in filteredProducts()" :key="item.id">
           <td class="storm-table__td">{{ item.id }}</td>
           <td class="storm-table__td storm-table__td--text-center">Status</td>
           <td class="storm-table__td storm-table__td--text-center">{{ item.quantity }}</td>

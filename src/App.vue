@@ -1,11 +1,10 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { onMounted } from 'vue'
+import { useMainState } from './components/state/mainState'
 import StormHeader from './components/StormHeader.vue'
 import ProductTable from './components/ProductTable.vue'
 
-const products = ref([])
-const fetchError = ref('')
-const isLoading = ref(true)
+const { fetchError, isDataLoading, productsList, mainCount, filteredCount } = useMainState()
 
 onMounted(async () => {
   try {
@@ -18,13 +17,15 @@ onMounted(async () => {
 
     const data = await response.json()
 
-    products.value = data
+    productsList.value = data
+    mainCount.value = data.length
+    filteredCount.value = data.length
   } catch (error) {
     fetchError.value = 'Error Fetching JSON'
 
     console.error('Error Fetching JSON:', error)
   } finally {
-    isLoading.value = false
+    isDataLoading.value = false
   }
 })
 </script>
@@ -38,14 +39,14 @@ onMounted(async () => {
     <div class="storm-container">
       <div class="storm-main__title-container">
         <h1 class="storm-main__title">Products</h1>
-        <span v-if="!isLoading && !fetchError"
-          >{{ products.length }} of {{ products.length }} results</span
+        <span v-if="!isDataLoading && !fetchError && productsList.length > 0"
+          >{{ filteredCount }} of {{ mainCount }} results</span
         >
       </div>
 
-      <ProductTable v-if="!fetchError && products.length > 0" :products="products" />
-      <p v-else-if="isLoading">Loading Data...</p>
-      <p class="storm-main__error-message" v-else>{{ fetchError }}</p>
+      <ProductTable v-if="!fetchError && productsList.length > 0" />
+      <p v-else-if="isDataLoading">Loading Data...</p>
+      <p v-else class="storm-main__error-message">{{ fetchError }}</p>
     </div>
   </main>
 </template>
