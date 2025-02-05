@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { useMainState } from './state/mainState'
+import { useMainState } from './state/useMainState'
 import StormModal from './StormModal.vue'
 
 const { productsList, searchQuery, filteredCount } = useMainState()

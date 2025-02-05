@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { useMainState } from './state/mainState'
+import { useMainState } from './state/useMainState'
 import MagnifyingGlassSVG from './SVGs/MagnifyingGlassSVG.vue'
 
 const { searchQuery } = useMainState()

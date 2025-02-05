@@ -1,31 +1,13 @@
 <script setup>
 import { onMounted } from 'vue'
-import { useMainState } from './components/state/mainState'
+import { useMainState } from './components/state/useMainState'
 import StormHeader from './components/StormHeader.vue'
 import ProductTable from './components/ProductTable.vue'
 
-const { fetchError, isDataLoading, productsList, filteredCount } = useMainState()
+const { fetchError, isDataLoading, productsList, filteredCount, fetchProducts } = useMainState()
 
-onMounted(async () => {
-  try {
-    const response = await fetch('/products.json')
-
-    if (!response.ok) {
-      fetchError.value = 'Failed to fetch data.'
-      throw new Error('Failed to fetch data')
-    }
-
-    const data = await response.json()
-
-    productsList.value = data
-    filteredCount.value = data.length
-  } catch (error) {
-    fetchError.value = 'Error Fetching JSON'
-
-    console.error('Error Fetching JSON:', error)
-  } finally {
-    isDataLoading.value = false
-  }
+onMounted(() => {
+  fetchProducts()
 })
 </script>
 
