@@ -8,6 +8,7 @@ const {
 } = useMainState()
 
 const modalState = ref({
+  id: null,
   title: '',
   img: '',
   show: false,
@@ -15,7 +16,7 @@ const modalState = ref({
 
 const ascend = ref(true)
 
-const handleOpenModal = (itemTitle, itemImg) => {
+const handleOpenModal = (itemTitle, itemImg, itemId) => {
   modalState.value = {
     title: itemTitle,
     img: itemImg,
@@ -24,11 +25,15 @@ const handleOpenModal = (itemTitle, itemImg) => {
 }
 
 const handleCloseModal = () => {
+  const buttonRef = document.querySelector(`#modalBtnRef-${modalState.value.id}`)
   modalState.value = {
+    id: null,
     title: '',
     img: '',
     show: false,
   }
+
+  buttonRef.focus()
 }
 
 const sortData = (sortBy) => {
@@ -95,8 +100,10 @@ const filteredProducts = () => {
           <td class="storm-table__td storm-table__td--text-center">{{ item.quantity }}</td>
           <td class="storm-table__td storm-table__td--mobile">
             <button
+              v-bind:id="`modalBtnRef-${item.id}`"
               class="storm-btn-link"
-              @click="handleOpenModal(item.product, item.image)"
+              type="button"
+              @click="handleOpenModal(item.product, item.image, item.id)"
               aria-haspopup="true"
             >
               {{ item.product }}
