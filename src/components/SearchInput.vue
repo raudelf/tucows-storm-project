@@ -4,7 +4,9 @@ import { useMainState } from './state/useMainState'
 import MagnifyingGlassSVG from './SVGs/MagnifyingGlassSVG.vue'
 import HamburgerMenuCloseSVG from './SVGs/HamburgerMenuCloseSVG.vue'
 
-const { searchQuery } = useMainState()
+const {
+  state: { searchQuery },
+} = useMainState()
 
 const searchInputValue = ref('')
 const searchInputRef = ref()

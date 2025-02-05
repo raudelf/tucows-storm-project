@@ -2,7 +2,7 @@ import { ref } from 'vue'
 
 const searchQuery = ref('')
 const fetchError = ref('')
-const isDataLoading = ref(true)
+const isDataLoading = ref(false)
 const productsList = ref([])
 const filteredCount = ref(0)
 
@@ -32,11 +32,15 @@ const fetchProducts = async () => {
 
 export function useMainState() {
   return {
-    searchQuery,
-    fetchError,
-    isDataLoading,
-    productsList,
-    filteredCount,
-    fetchProducts,
+    state: {
+      searchQuery,
+      fetchError,
+      isDataLoading,
+      productsList,
+      filteredCount,
+    },
+    actor: {
+      fetchProducts,
+    },
   }
 }

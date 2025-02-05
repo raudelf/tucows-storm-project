@@ -3,7 +3,9 @@ import { ref } from 'vue'
 import { useMainState } from './state/useMainState'
 import StormModal from './StormModal.vue'
 
-const { productsList, searchQuery, filteredCount } = useMainState()
+const {
+  state: { productsList, searchQuery, filteredCount },
+} = useMainState()
 
 const modalState = ref({
   title: '',

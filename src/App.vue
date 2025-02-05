@@ -4,7 +4,10 @@ import { useMainState } from './components/state/useMainState'
 import StormHeader from './components/StormHeader.vue'
 import ProductTable from './components/ProductTable.vue'
 
-const { fetchError, isDataLoading, productsList, filteredCount, fetchProducts } = useMainState()
+const {
+  state: { fetchError, isDataLoading, productsList, filteredCount },
+  actor: { fetchProducts },
+} = useMainState()
 
 onMounted(() => {
   fetchProducts()
