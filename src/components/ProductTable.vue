@@ -18,6 +18,7 @@ const ascend = ref(true)
 
 const handleOpenModal = (itemTitle, itemImg, itemId) => {
   modalState.value = {
+    id: itemId,
     title: itemTitle,
     img: itemImg,
     show: true,
