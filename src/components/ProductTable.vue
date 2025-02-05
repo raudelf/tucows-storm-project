@@ -5,21 +5,28 @@ import StormModal from './StormModal.vue'
 
 const { productsList, searchQuery, filteredCount } = useMainState()
 
-const modalTitle = ref('')
-const productImg = ref('')
-const showModal = ref(false)
+const modalState = ref({
+  title: '',
+  img: '',
+  show: false,
+})
+
 const ascend = ref(true)
 
 const handleOpenModal = (itemTitle, itemImg) => {
-  modalTitle.value = itemTitle
-  productImg.value = itemImg
-  showModal.value = true
+  modalState.value = {
+    title: itemTitle,
+    img: itemImg,
+    show: true,
+  }
 }
 
 const handleCloseModal = () => {
-  modalTitle.value = ''
-  productImg.value = ''
-  showModal.value = false
+  modalState.value = {
+    title: '',
+    img: '',
+    show: false,
+  }
 }
 
 const sortData = (sortBy) => {
@@ -104,19 +111,19 @@ const filteredProducts = () => {
       </tbody>
     </table>
     <Teleport to="#modal">
-      <StormModal v-show="showModal" :title="modalTitle" :close-modal-fn="handleCloseModal">
+      <StormModal
+        v-show="modalState.show"
+        :title="modalState.title"
+        :close-modal-fn="handleCloseModal"
+      >
         <template v-slot:content>
           <div class="storm-modal__image-container">
             <img
               class="storm-modal__image"
-              v-if="productImg"
-              v-bind:src="productImg"
-              v-bind:alt="modalTitle"
-            />
-            <img
-              v-else
-              src="/src/assets/images/image-not-found.png"
-              alt="No Image Found For Product"
+              v-bind:src="
+                modalState.img ? modalState.img : '/src/assets/images/image-not-found.png'
+              "
+              v-bind:alt="modalState.img ? modalState.title : 'No Image Found For Product'"
             />
           </div>
           <div class="storm-modal__product-details"></div>
