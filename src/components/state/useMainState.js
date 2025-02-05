@@ -8,12 +8,13 @@ const filteredCount = ref(0)
 
 const fetchProducts = async () => {
   isDataLoading.value = true
-  fetchError.value = null
+  fetchError.value = ''
 
   try {
     const response = await fetch('/products.json')
 
     if (!response.ok) {
+      fetchError.value = 'Failed to fetch data.'
       throw new Error(`HTTP Error: ${response.status} - ${response.statusText}`)
     }
 
