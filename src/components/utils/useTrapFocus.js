@@ -30,8 +30,8 @@ const handleEscapeKey = (e, closeModalFn) => {
   }
 }
 
-const trapFocus = async (modalRef) => {
-  const focusableElements = await modalRef.value.querySelectorAll(focusableElementList)
+const trapFocus = (modalRef) => {
+  const focusableElements = modalRef.value.querySelectorAll(focusableElementList)
   firstFocusableElement.value = focusableElements[0]
   lastFocusableElement.value = focusableElements[focusableElements.length - 1]
 
