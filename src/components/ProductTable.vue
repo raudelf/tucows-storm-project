@@ -10,16 +10,18 @@ const {
 const modalState = ref({
   id: null,
   title: '',
+  description: '',
   img: '',
   show: false,
 })
 
 const ascend = ref(true)
 
-const handleOpenModal = (itemTitle, itemImg, itemId) => {
+const handleOpenModal = (itemTitle, itemDesc, itemImg, itemId) => {
   modalState.value = {
     id: itemId,
     title: itemTitle,
+    description: itemDesc,
     img: itemImg,
     show: true,
   }
@@ -40,20 +42,13 @@ const handleCloseModal = () => {
 const sortData = (sortBy) => {
   ascend.value = !ascend.value
 
-  switch (sortBy) {
-    case 'product':
-      productsList.value = productsList.value.sort((a, b) => {
-        return ascend.value
-          ? a.product.localeCompare(b.product)
-          : b.product.localeCompare(a.product)
-      })
-      break
-    default:
-      productsList.value = productsList.value.sort((a, b) => {
-        return ascend.value ? a[sortBy] - b[sortBy] : b[sortBy] - a[sortBy]
-      })
-      break
-  }
+  productsList.value = [...productsList.value].sort((a, b) => {
+    if (sortBy === 'product') {
+      return ascend.value ? a.product.localeCompare(b.product) : b.product.localeCompare(a.product)
+    } else {
+      return ascend.value ? a[sortBy] - b[sortBy] : b[sortBy] - a[sortBy]
+    }
+  })
 }
 
 const filteredProducts = () => {
@@ -104,7 +99,7 @@ const filteredProducts = () => {
               v-bind:id="`modalBtnRef-${item.id}`"
               class="storm-btn-link"
               type="button"
-              @click="handleOpenModal(item.product, item.image, item.id)"
+              @click="handleOpenModal(item.product, item.description, item.image, item.id)"
               aria-haspopup="true"
             >
               {{ item.product }}
@@ -136,7 +131,9 @@ const filteredProducts = () => {
               v-bind:alt="modalState.img ? modalState.title : 'No Image Found For Product'"
             />
           </div>
-          <div class="storm-modal__product-details"></div>
+          <div class="storm-modal__product-details">
+            <p>{{ modalState.description }}</p>
+          </div>
         </template>
       </StormModal>
     </Teleport>
