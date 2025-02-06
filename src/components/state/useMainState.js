@@ -30,6 +30,31 @@ const fetchProducts = async () => {
   }
 }
 
+const filteredProducts = () => {
+  if (!searchQuery.value) {
+    filteredCount.value = productsList.value.length
+    return productsList.value
+  }
+
+  const filteredData = productsList.value.filter((product) => {
+    return product.product.toLowerCase().includes(searchQuery.value.toLowerCase())
+  })
+
+  filteredCount.value = filteredData.length
+
+  return filteredData
+}
+
+const sortData = (sortBy, ascendRef) => {
+  productsList.value = [...productsList.value].sort((a, b) => {
+    if (sortBy === 'product') {
+      return ascendRef ? a.product.localeCompare(b.product) : b.product.localeCompare(a.product)
+    } else {
+      return ascendRef ? a[sortBy] - b[sortBy] : b[sortBy] - a[sortBy]
+    }
+  })
+}
+
 export function useMainState() {
   return {
     state: {
@@ -41,6 +66,8 @@ export function useMainState() {
     },
     actor: {
       fetchProducts,
+      filteredProducts,
+      sortData,
     },
   }
 }

@@ -4,7 +4,7 @@ import { useMainState } from './state/useMainState'
 import StormModal from './StormModal.vue'
 
 const {
-  state: { productsList, searchQuery, filteredCount },
+  actor: { sortData, filteredProducts },
 } = useMainState()
 
 const modalState = ref({
@@ -15,7 +15,9 @@ const modalState = ref({
   show: false,
 })
 
-const ascend = ref(true)
+const quantityAscend = ref(false)
+const productAscend = ref(false)
+const totalAscend = ref(false)
 
 const handleOpenModal = (itemTitle, itemDesc, itemImg, itemId) => {
   modalState.value = {
@@ -39,31 +41,30 @@ const handleCloseModal = () => {
   buttonRef.focus()
 }
 
-const sortData = (sortBy) => {
-  ascend.value = !ascend.value
+const handleSort = (column) => {
+  let ascend
 
-  productsList.value = [...productsList.value].sort((a, b) => {
-    if (sortBy === 'product') {
-      return ascend.value ? a.product.localeCompare(b.product) : b.product.localeCompare(a.product)
-    } else {
-      return ascend.value ? a[sortBy] - b[sortBy] : b[sortBy] - a[sortBy]
-    }
-  })
-}
-
-const filteredProducts = () => {
-  if (!searchQuery.value) {
-    filteredCount.value = productsList.value.length
-    return productsList.value
+  switch (column) {
+    case 'quantity':
+      quantityAscend.value = !quantityAscend.value
+      productAscend.value = false
+      totalAscend.value = false
+      ascend = quantityAscend.value
+      break
+    case 'product':
+      productAscend.value = !productAscend.value
+      totalAscend.value = false
+      quantityAscend.value = false
+      ascend = productAscend.value
+      break
+    case 'total':
+      totalAscend.value = !totalAscend.value
+      quantityAscend.value = false
+      productAscend.value = false
+      ascend = totalAscend.value
+      break
   }
-
-  const filteredData = productsList.value.filter((product) => {
-    return product.product.toLowerCase().includes(searchQuery.value.toLowerCase())
-  })
-
-  filteredCount.value = filteredData.length
-
-  return filteredData
+  sortData(column, ascend)
 }
 </script>
 
@@ -75,17 +76,37 @@ const filteredProducts = () => {
           <th class="storm-table__th">ID</th>
           <th class="storm-table__th">Status</th>
           <th class="storm-table__th">
-            <button type="button" class="storm-btn-link" @click="sortData('quantity')">
+            <button
+              type="button"
+              v-bind:class="
+                quantityAscend ? 'storm-btn-link storm-btn-link--ascend' : 'storm-btn-link'
+              "
+              @click="handleSort('quantity')"
+            >
               Quantity
             </button>
           </th>
           <th class="storm-table__th storm-table__th--mobile">
-            <button type="button" class="storm-btn-link" @click="sortData('product')">
+            <button
+              type="button"
+              v-bind:class="
+                productAscend ? 'storm-btn-link storm-btn-link--ascend' : 'storm-btn-link'
+              "
+              @click="handleSort('product')"
+            >
               Product Name
             </button>
           </th>
           <th class="storm-table__th">
-            <button type="button" class="storm-btn-link" @click="sortData('total')">Prices</button>
+            <button
+              type="button"
+              v-bind:class="
+                totalAscend ? 'storm-btn-link storm-btn-link--ascend' : 'storm-btn-link'
+              "
+              @click="handleSort('total')"
+            >
+              Prices
+            </button>
           </th>
         </tr>
       </thead>

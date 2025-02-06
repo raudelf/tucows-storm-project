@@ -21,6 +21,7 @@
 }
 
 .storm-btn-link {
+  position: relative;
   padding: 0;
   background-color: transparent;
   border: none;
@@ -28,5 +29,23 @@
 
   &:hover {
     text-decoration: underline;
+  }
+
+  .storm-table__th &::after {
+    position: absolute;
+    content: '';
+    height: 10px;
+    width: 10px;
+    top: 50%;
+    right: -30px;
+    transform: translateY(-50%) rotate(45deg);
+    border-bottom: 2px solid #1a1a1a;
+    border-right: 2px solid #1a1a1a;
+  }
+
+  .storm-table__th &--ascend::after {
+    transform: translateY(-50%) rotate(225deg);
+    border-bottom: 2px solid #1a1a1a;
+    border-right: 2px solid #1a1a1a;
   }
 }
