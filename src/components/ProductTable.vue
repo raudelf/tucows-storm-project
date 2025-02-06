@@ -138,7 +138,7 @@ const handleSort = (column) => {
     </table>
     <Teleport to="#modal">
       <StormModal
-        v-show="modalState.show"
+        v-if="modalState.show"
         :title="modalState.title"
         :close-modal-fn="handleCloseModal"
       >

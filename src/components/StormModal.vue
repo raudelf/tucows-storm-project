@@ -1,19 +1,43 @@
 <script setup>
+import { ref, onMounted, onUnmounted, nextTick } from 'vue'
+import { useTrapFocus } from './utils/useTrapFocus'
 import HamburgerMenuCloseSVG from './SVGs/HamburgerMenuCloseSVG.vue'
 
 const props = defineProps({
   title: { type: String },
   closeModalFn: { type: Function },
 })
+
+const { trapFocus, handleEscapeKey, handleTabKey } = useTrapFocus()
+
+const modalRef = ref()
+
+onMounted(() => {
+  nextTick(() => {
+    trapFocus(modalRef)
+    document.addEventListener('keydown', handleTabKey)
+    document.addEventListener('keydown', (e) => handleEscapeKey(e, props.closeModalFn))
+  })
+})
+
+onUnmounted(() => {
+  document.removeEventListener('keydown', handleTabKey)
+  document.removeEventListener('keydown', (e) => handleEscapeKey(e, props.closeModalFn))
+})
 </script>
 
 <template>
   <div class="storm-modal__background">
     <div class="storm-modal">
-      <div class="storm-modal__container" role="dialog" aria-modal="true">
+      <div ref="modalRef" class="storm-modal__container" role="dialog" aria-modal="true">
         <div class="storm-modal__header">
           <h2 class="storm-modal__header-text">{{ props.title }}</h2>
-          <button class="storm-btn-link" aria-label="Close Modal" @click="props.closeModalFn">
+          <button
+            id="storm-modal-close-btn"
+            class="storm-btn-link"
+            aria-label="Close Modal"
+            @click="props.closeModalFn"
+          >
             <HamburgerMenuCloseSVG />
           </button>
         </div>
