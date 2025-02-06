@@ -60,6 +60,7 @@
   @include md {
     display: flex;
     align-items: flex-start;
+    gap: 1rem;
   }
 }
 
@@ -70,8 +71,12 @@
 }
 
 .storm-modal__product-details {
+  margin-top: 1.5rem;
+
   @include md {
+    margin-top: 0;
     flex: 1;
+    line-height: 1.5;
   }
 }
 
