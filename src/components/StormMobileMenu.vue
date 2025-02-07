@@ -23,8 +23,8 @@ const handleOpenMenu = () => {
         v-bind:aria-expanded="isOpen"
         aria-label="Toggle Navigation Menu"
       >
-        <HamburgerMenuSVG v-show="!isOpen" />
-        <HamburgerMenuCloseSVG v-show="isOpen" />
+        <HamburgerMenuSVG v-if="!isOpen" />
+        <HamburgerMenuCloseSVG v-if="isOpen" />
       </button>
       <div
         v-bind:class="

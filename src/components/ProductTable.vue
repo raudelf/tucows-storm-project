@@ -122,11 +122,13 @@ const handleSort = (column) => {
             <p class="storm-table__sub-text">
               {{ item.serial }}
               <span class="storm-table__sub-text storm-table__sub-text--mobile"
-                >- Qty: {{ item.quantity }}</span
+                >- Qty: {{ item.quantity.toLocaleString('en-US') }}</span
               >
             </p>
           </td>
-          <td class="storm-table__td">${{ item.total.toFixed(2) }}</td>
+          <td class="storm-table__td">
+            {{ item.total.toLocaleString('en-US', { style: 'currency', currency: 'USD' }) }}
+          </td>
         </tr>
       </tbody>
     </table>

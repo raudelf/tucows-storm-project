@@ -27,6 +27,22 @@
   border: 0;
   width: 1px;
   height: 1px;
-  -webkit-user-select: none;
-  user-select: none;
+
+  &.storm-main__skip-to-content {
+    &:focus-visible {
+      position: fixed;
+      z-index: 9999;
+      width: 100%;
+      height: auto;
+      display: block;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 2rem;
+      text-align: center;
+      color: $white;
+      background: $primary;
+      clip: unset;
+    }
+  }
 }
