@@ -46,6 +46,15 @@
       text-align: center;
     }
   }
+
+  @include md {
+    &--products {
+      .storm-table__td:first-child,
+      .storm-table__th:first-child {
+        width: 70px;
+      }
+    }
+  }
 }
 
 .storm-table__container {
