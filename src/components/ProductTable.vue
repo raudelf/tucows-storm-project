@@ -15,9 +15,11 @@ const modalState = ref({
   show: false,
 })
 
-const quantityAscend = ref(false)
-const productAscend = ref(false)
-const totalAscend = ref(false)
+const ascendList = ref({
+  product: false,
+  quantity: false,
+  total: false,
+})
 
 const handleOpenModal = (itemTitle, itemDesc, itemImg, itemId) => {
   modalState.value = {
@@ -44,26 +46,15 @@ const handleCloseModal = () => {
 const handleSort = (column) => {
   let ascend
 
-  switch (column) {
-    case 'quantity':
-      quantityAscend.value = !quantityAscend.value
-      productAscend.value = false
-      totalAscend.value = false
-      ascend = quantityAscend.value
-      break
-    case 'product':
-      productAscend.value = !productAscend.value
-      totalAscend.value = false
-      quantityAscend.value = false
-      ascend = productAscend.value
-      break
-    case 'total':
-      totalAscend.value = !totalAscend.value
-      quantityAscend.value = false
-      productAscend.value = false
-      ascend = totalAscend.value
-      break
-  }
+  Object.keys(ascendList.value).map((key) => {
+    if (key.toString() === column) {
+      ascendList.value[column] = !ascendList.value[column]
+      ascend = ascendList.value[column]
+    } else {
+      ascendList.value[key] = false
+    }
+  })
+
   sortData(column, ascend)
 }
 </script>
@@ -79,7 +70,7 @@ const handleSort = (column) => {
             <button
               type="button"
               v-bind:class="
-                quantityAscend ? 'storm-btn-link storm-btn-link--ascend' : 'storm-btn-link'
+                ascendList.quantity ? 'storm-btn-link storm-btn-link--ascend' : 'storm-btn-link'
               "
               @click="handleSort('quantity')"
             >
@@ -90,7 +81,7 @@ const handleSort = (column) => {
             <button
               type="button"
               v-bind:class="
-                productAscend ? 'storm-btn-link storm-btn-link--ascend' : 'storm-btn-link'
+                ascendList.product ? 'storm-btn-link storm-btn-link--ascend' : 'storm-btn-link'
               "
               @click="handleSort('product')"
             >
@@ -101,7 +92,7 @@ const handleSort = (column) => {
             <button
               type="button"
               v-bind:class="
-                totalAscend ? 'storm-btn-link storm-btn-link--ascend' : 'storm-btn-link'
+                ascendList.total ? 'storm-btn-link storm-btn-link--ascend' : 'storm-btn-link'
               "
               @click="handleSort('total')"
             >
