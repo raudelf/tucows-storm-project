@@ -1,0 +1,31 @@
+.storm-status__container {
+  text-align: center;
+}
+
+.storm-status__text {
+  width: fit-content;
+  margin: 0 auto;
+  padding: 0.25rem 1.5rem;
+  border-radius: 12px;
+  text-align: center;
+
+  &--blue {
+    background-color: $blue;
+    color: $blue-text;
+  }
+
+  &--green {
+    background-color: $green;
+    color: $green-text;
+  }
+
+  &--yellow {
+    background-color: $yellow;
+    color: $yellow-text;
+  }
+
+  &--red {
+    background-color: $red;
+    color: $red-text;
+  }
+}

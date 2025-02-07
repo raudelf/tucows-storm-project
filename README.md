@@ -1,35 +1,44 @@
 # tucows-storm-project
 
-This template should help get you started developing with Vue 3 in Vite.
+In order to run this project, please follow the instructions below.
 
-## Recommended IDE Setup
+## Prerequisites
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+Before running this project, you will need the following installed:
 
-## Customize configuration
+- [Node.js](https://nodejs.org/en).
+- npm (comes with Node)
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+## Clone the Repository
 
-## Project Setup
+Please click on the green Code button above and copy the HTTPS repo url. Then, in your git terminal run the following command:
+
+```sh
+git clone <repo-url>
+```
+
+Once cloned, you can now `cd` into the tucows-storm-project folder.
+
+## Install Dependencies
+
+Run the following command in the directory to install dependencies:
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+### Run the Project!
+
+Once the installation is complete, you can now run the project by running the following command:
 
 ```sh
 npm run dev
 ```
 
-### Compile and Minify for Production
+### Stop Running the Project
+
+To stop running the project, simply hit the following keys in your terminal:
 
 ```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
+CTRL + C
 ```

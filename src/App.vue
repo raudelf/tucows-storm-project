@@ -1,47 +1,36 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import { onMounted } from 'vue'
+import { useMainState } from './components/state/useMainState'
+import StormHeader from './components/StormHeader.vue'
+import ProductTable from './components/ProductTable.vue'
+
+const {
+  state: { fetchError, isDataLoading, productsList, filteredCount },
+  actor: { fetchProducts },
+} = useMainState()
+
+onMounted(() => {
+  fetchProducts()
+})
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
+  <header class="storm-header">
+    <StormHeader />
   </header>
 
-  <main>
-    <TheWelcome />
+  <main class="storm-main">
+    <div class="storm-container">
+      <div class="storm-main__title-container">
+        <h1 class="storm-main__title">Products</h1>
+        <span v-if="!isDataLoading && !fetchError && productsList.length > 0"
+          >{{ filteredCount }} of {{ productsList.length }} results</span
+        >
+      </div>
+
+      <ProductTable v-if="!fetchError && productsList.length > 0" />
+      <p v-else-if="isDataLoading">Loading Data...</p>
+      <p v-else class="storm-main__error-message">{{ fetchError }}</p>
+    </div>
   </main>
 </template>
-
-<style scoped lang="scss">
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
-</style>
