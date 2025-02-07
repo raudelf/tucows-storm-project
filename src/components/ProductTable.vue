@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { useMainState } from './state/useMainState'
 import StormModal from './StormModal.vue'
+import StatusBubble from './StatusBubble.vue'
 
 const {
   actor: { sortData, filteredProducts },
@@ -104,7 +105,9 @@ const handleSort = (column) => {
       <tbody>
         <tr class="storm-table__tr" v-for="item in filteredProducts()" :key="item.id">
           <td class="storm-table__td">{{ item.id }}</td>
-          <td class="storm-table__td storm-table__td--text-center">Status</td>
+          <td class="storm-table__td storm-table__td--text-center">
+            <StatusBubble :statusCode="item.statusCode" :statusText="item.statusText" />
+          </td>
           <td class="storm-table__td storm-table__td--text-center">{{ item.quantity }}</td>
           <td class="storm-table__td storm-table__td--mobile">
             <button

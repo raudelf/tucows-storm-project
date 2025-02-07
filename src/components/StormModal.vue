@@ -5,7 +5,7 @@ import HamburgerMenuCloseSVG from './SVGs/HamburgerMenuCloseSVG.vue'
 
 const props = defineProps({
   title: { type: String },
-  closeModalFn: { type: Function },
+  closeModalFn: { type: Function, required: true },
 })
 
 const { trapFocus, handleEscapeKey, handleTabKey } = useTrapFocus()
@@ -31,7 +31,7 @@ onUnmounted(() => {
     <div class="storm-modal">
       <div ref="modalRef" class="storm-modal__container" role="dialog" aria-modal="true">
         <div class="storm-modal__header">
-          <h2 class="storm-modal__header-text">{{ props.title }}</h2>
+          <h2 v-if="props.title" class="storm-modal__header-text">{{ props.title }}</h2>
           <button
             id="storm-modal-close-btn"
             class="storm-btn-link"
